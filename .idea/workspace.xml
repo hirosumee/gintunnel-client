@@ -15,6 +15,9 @@
     </option>
   </component>
   <component name="GOROOT" path="/usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1X6AuzufzUrgozaBXZSh672cFIL" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -24,6 +27,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$" />
@@ -66,6 +70,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="526" y="121" width="861" height="809" key="CommitChangelistDialog2" timestamp="1580374938331">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="526" y="121" width="861" height="809" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1580374938331" />
     <state width="1878" height="279" key="GridCell.Tab.0.bottom" timestamp="1580372750553">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
