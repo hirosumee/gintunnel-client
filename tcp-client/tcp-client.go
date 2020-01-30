@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func StartTcpClient(port string) {
+func StartTcpClient(hostname string) {
 	svConn, err := net.Dial("tcp", "localhost:8081")
 	if err != nil {
 		logrus.Error(err)
@@ -16,7 +16,7 @@ func StartTcpClient(port string) {
 	}
 	r := bufio.NewReader(svConn)
 	w := bufio.NewWriter(svConn)
-	_, _ = w.WriteString(fmt.Sprintf("REG localhost:%s\n", port))
+	_, _ = w.WriteString(fmt.Sprintf("REG %s\n", hostname))
 	_ = w.Flush()
 	for {
 		temp, err := r.ReadString('\n')
