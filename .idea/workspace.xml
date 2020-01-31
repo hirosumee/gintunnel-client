@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5064e056-b65d-42ab-a717-0c33db90ed05" name="Default Changelist" comment="" />
+    <list default="true" id="5064e056-b65d-42ab-a717-0c33db90ed05" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tcp-client/tcp-client.go" beforeDir="false" afterPath="$PROJECT_DIR$/tcp-client/tcp-client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tcp-server/tcp-server.go" beforeDir="false" afterPath="$PROJECT_DIR$/tcp-server/tcp-server.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,13 +32,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
-    <property name="GO_FMT" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -72,26 +77,38 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="526" y="121" width="861" height="809" key="CommitChangelistDialog2" timestamp="1580432647704">
+    <state x="489" y="425" width="616" height="389" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580394192985">
+      <screen x="0" y="169" width="1600" height="900" />
+    </state>
+    <state x="489" y="425" width="616" height="389" key="#com.intellij.fileTypes.FileTypeChooser/1600.0.1920.1080/0.169.1600.900@0.169.1600.900" timestamp="1580394192985" />
+    <state x="526" y="121" width="861" height="809" key="CommitChangelistDialog2" timestamp="1580374938331">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="526" y="121" width="861" height="809" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1580432647704" />
-    <state width="1878" height="279" key="GridCell.Tab.0.bottom" timestamp="1580372750553">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="526" y="121" width="861" height="809" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1580374938331" />
+    <state width="1878" height="229" key="GridCell.Tab.0.bottom" timestamp="1580395246745">
+      <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1580372750553" />
-    <state width="1878" height="279" key="GridCell.Tab.0.center" timestamp="1580372750552">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1558" height="229" key="GridCell.Tab.0.bottom/1600.0.1920.1080/0.169.1600.900@0.169.1600.900" timestamp="1580394871288" />
+    <state width="1878" height="229" key="GridCell.Tab.0.bottom/1600.0.1920.1080/0.169.1600.900@1600.0.1920.1080" timestamp="1580395246745" />
+    <state width="1878" height="229" key="GridCell.Tab.0.center" timestamp="1580395246744">
+      <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="279" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1580372750552" />
-    <state width="1878" height="279" key="GridCell.Tab.0.left" timestamp="1580372750551">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1558" height="229" key="GridCell.Tab.0.center/1600.0.1920.1080/0.169.1600.900@0.169.1600.900" timestamp="1580394871288" />
+    <state width="1878" height="229" key="GridCell.Tab.0.center/1600.0.1920.1080/0.169.1600.900@1600.0.1920.1080" timestamp="1580395246744" />
+    <state width="1878" height="229" key="GridCell.Tab.0.left" timestamp="1580395246744">
+      <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="279" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1580372750551" />
-    <state width="1878" height="279" key="GridCell.Tab.0.right" timestamp="1580372750552">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1558" height="229" key="GridCell.Tab.0.left/1600.0.1920.1080/0.169.1600.900@0.169.1600.900" timestamp="1580394871288" />
+    <state width="1878" height="229" key="GridCell.Tab.0.left/1600.0.1920.1080/0.169.1600.900@1600.0.1920.1080" timestamp="1580395246744" />
+    <state width="1878" height="229" key="GridCell.Tab.0.right" timestamp="1580395246745">
+      <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="279" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580372750552" />
+    <state width="1558" height="229" key="GridCell.Tab.0.right/1600.0.1920.1080/0.169.1600.900@0.169.1600.900" timestamp="1580394871288" />
+    <state width="1878" height="229" key="GridCell.Tab.0.right/1600.0.1920.1080/0.169.1600.900@1600.0.1920.1080" timestamp="1580395246745" />
     <state width="1878" height="344" key="GridCell.Tab.1.bottom" timestamp="1580369290669">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

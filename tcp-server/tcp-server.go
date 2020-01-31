@@ -1,12 +1,12 @@
 package tcp_server
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"io"
-	"io/ioutil"
-	"log"
 	"net"
+	"os"
 	"strings"
 	"syscall"
 )
@@ -43,34 +43,38 @@ func handleConnection(conn net.Conn) {
 		checkErr(err)
 		return
 	}
-	editHostname(conn, svConn)
-	go transfer(conn, svConn)
-	go transfer(svConn, conn)
+	editHeader(conn, svConn)
+	go transfer(conn, svConn, 1)
+	go transfer(svConn, conn, 2)
 }
-func editHostname(client net.Conn, server net.Conn) {
-	buf := make([]byte, 100)
+func editHeader(client net.Conn, server net.Conn) {
+	buf := make([]byte, 2*1024)
 	client.Read(buf)
 	str := string(buf)
-	str = strings.ReplaceAll(str, hostname, fmt.Sprintf("localhost:%s", port))
-	logrus.Info(str)
+	requestName := getRequestName(str)
+	logrus.Info(requestName)
+	str = editHostname(str)
 	server.Write([]byte(str))
 }
 
-func transfer(src io.ReadCloser, dest io.WriteCloser) {
+func editHostname(str string) string {
+	return strings.ReplaceAll(str, hostname, fmt.Sprintf("localhost:%s", port))
+}
+
+func transfer(src io.ReadCloser, dest io.WriteCloser, mode int8) {
 	defer src.Close()
 	defer dest.Close()
-	//r := io.TeeReader(src, dest)
-	//go printAll(r)
-	io.Copy(dest, src)
-}
-func printAll(r io.Reader) {
-	b, err := ioutil.ReadAll(r)
-	if err != nil {
-		log.Fatal(err)
+	if mode == 1 {
+		io.Copy(dest, src)
+	} else if mode == 2 {
+		buf := make([]byte, 100)
+		buffer := bytes.NewBuffer(buf)
+		w := io.MultiWriter(dest, os.Stdout, buffer)
+		io.Copy(w, src)
+		logrus.Info(buffer.ReadString('\n'))
 	}
-
-	fmt.Printf("%s", b)
 }
+
 func sendNotFound(conn net.Conn) {
 	conn.Write([]byte("HTTP/1.1 404 Not Found\r\n"))
 	conn.Write([]byte("\r\n<h1>HI</h1>\r\n"))
@@ -99,4 +103,17 @@ func checkErr(err error) {
 			println("Connection refused")
 		}
 	}
+}
+func getRequestName(str string) string {
+	var index = -1
+	for i, v := range str[:] {
+		if v == '\r' {
+			index = i
+			break
+		}
+	}
+	if index == -1 {
+		return ""
+	}
+	return str[:index]
 }

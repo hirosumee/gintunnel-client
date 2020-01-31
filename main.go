@@ -15,6 +15,7 @@ func main() {
 	if hostname == "" {
 		logrus.Fatal("Hostname is required")
 	}
+	logrus.Infof("start with hostname : %s and port : %s", hostname, port)
 	var wg sync.WaitGroup
 	wg.Add(3)
 	go func() {
@@ -27,13 +28,13 @@ func main() {
 	}()
 	go func() {
 		time.Sleep(1 * time.Second)
-		tcp_client.StartTcpClient(port)
+		tcp_client.StartTcpClient(hostname)
 		wg.Done()
 	}()
 	wg.Wait()
 }
 func getConfig() (hostname string, port string) {
-	flag.StringVar(&hostname, "hostname", "", "hostname of tunnel")
+	flag.StringVar(&hostname, "hostname", "localhost:8080", "hostname of tunnel")
 	flag.StringVar(&port, "port", "80", "local port")
 	flag.Parse()
 	return
