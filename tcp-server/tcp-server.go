@@ -2,20 +2,20 @@ package tcp_server
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/sirupsen/logrus"
 	"io"
 	"net"
 	"os"
+	"path/filepath"
 	"strings"
 	"syscall"
 )
 
-var hostname, port string
+var from, to string
 
-func StartTCP(_hostname string, _port string) {
-	hostname = _hostname
-	port = _port
+func StartTCP(_from string, _to string) {
+	from = _from
+	to = _to
 	listener, err := net.Listen("tcp", ":8082")
 	if err != nil {
 		logrus.Fatal(err)
@@ -37,47 +37,51 @@ func listen(listener net.Listener) {
 }
 
 func handleConnection(conn net.Conn) {
-	svConn, err := net.Dial("tcp", fmt.Sprintf("localhost:%s", port))
+	svConn, err := net.Dial("tcp", to)
 	if err != nil {
-		sendNotFound(conn)
-		checkErr(err)
+		sendError(conn)
+		logrus.Error(err)
 		return
 	}
-	editHeader(conn, svConn)
-	go transfer(conn, svConn, 1)
-	go transfer(svConn, conn, 2)
+	name := editHeader(conn, svConn)
+	c := make(chan string)
+	go transferRequest(conn, svConn)
+	go transferResponse(c, svConn, conn)
+	meta := <- c
+	logrus.Info(name + " " + meta)
 }
-func editHeader(client net.Conn, server net.Conn) {
+func editHeader(client net.Conn, server net.Conn) string {
 	buf := make([]byte, 2*1024)
 	client.Read(buf)
 	str := string(buf)
 	requestName := getRequestName(str)
-	logrus.Info(requestName)
 	str = editHostname(str)
 	server.Write([]byte(str))
+	return requestName
 }
 
 func editHostname(str string) string {
-	return strings.ReplaceAll(str, hostname, fmt.Sprintf("localhost:%s", port))
+	return strings.ReplaceAll(str, from, to)
 }
-
-func transfer(src io.ReadCloser, dest io.WriteCloser, mode int8) {
+func transferRequest(src io.ReadCloser, dest io.WriteCloser) {
 	defer src.Close()
 	defer dest.Close()
-	if mode == 1 {
-		io.Copy(dest, src)
-	} else if mode == 2 {
-		buf := make([]byte, 100)
-		buffer := bytes.NewBuffer(buf)
-		w := io.MultiWriter(dest, os.Stdout, buffer)
-		io.Copy(w, src)
-		logrus.Info(buffer.ReadString('\n'))
-	}
+	io.Copy(dest, src)
+}
+func transferResponse(c chan string ,src io.ReadCloser, dest io.WriteCloser) {
+	defer src.Close()
+	defer dest.Close()
+	var b bytes.Buffer
+	w := io.MultiWriter(dest, &b)
+	io.Copy(w, src)
+	meta, _  := b.ReadString('\n')
+	c <- strings.TrimSpace((meta)[8:])
 }
 
-func sendNotFound(conn net.Conn) {
-	conn.Write([]byte("HTTP/1.1 404 Not Found\r\n"))
-	conn.Write([]byte("\r\n<h1>HI</h1>\r\n"))
+func sendError(conn net.Conn) {
+	conn.Write([]byte("HTTP/1.1 503 Service Unavailable Error\r\n\r\n"))
+	conn.Write(getOrRead503Page())
+	conn.Write([]byte("\r\n"))
 	conn.Close()
 }
 
@@ -116,4 +120,25 @@ func getRequestName(str string) string {
 		return ""
 	}
 	return str[:index]
+}
+
+var page503 []byte
+
+func getOrRead503Page() []byte {
+	if len(page503) == 0 {
+		var path, _ = filepath.Abs("./tcp-server/pages/503.html")
+		file, err := os.Open(path)
+		if err != nil {
+			logrus.Error(file)
+			return page503
+		}
+		page503 = make([]byte, 164*1024)
+		_, err = file.Read(page503)
+		if err != nil {
+			logrus.Error(file)
+		}
+		return page503
+	} else {
+		return page503
+	}
 }

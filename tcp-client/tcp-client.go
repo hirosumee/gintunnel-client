@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"io"
 	"net"
 	"strings"
 )
@@ -20,7 +21,7 @@ func StartTcpClient(hostname string) {
 	_ = w.Flush()
 	for {
 		temp, err := r.ReadString('\n')
-		if err != nil {
+		if err != nil && err != io.EOF {
 			logrus.Error(err)
 			break
 		}
